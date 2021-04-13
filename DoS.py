@@ -10,6 +10,7 @@ class DenialOfService(object):
         
 
     def run(self):
+        
         for i in range(2000):
             thread = threading.Thread(target=self.attack).start()
 
