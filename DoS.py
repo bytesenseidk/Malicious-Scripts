@@ -9,8 +9,7 @@ class DenialOfService(object):
         self.ip_mask = ip_mask
         
 
-    def run(self):
-        
+    def run(self):        
         for i in range(2000):
             thread = threading.Thread(target=self.attack).start()
 
