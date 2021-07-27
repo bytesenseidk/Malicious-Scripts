@@ -5,7 +5,7 @@ from threading import Thread
 from scapy.all import *
 
 
-class AccessPointScanner(object):
+class WifiMonitor(object):
     def __init__(self):
         self.networks = pandas.DataFrame(columns=["BSSID", "SSID", "dB", "Channel", "Crypto"])
         self.networks.set_index("BSSID", inplace=True)
@@ -41,7 +41,7 @@ class AccessPointScanner(object):
 
 
 if __name__ == "__main__":
-    ap = AccessPointScanner()
+    ap = WifiMonitor()
     interface = "wlan1mon"
     printer = Thread(target=ap.print_all)
     channel_changer = Thread(target=ap.change_channel)
