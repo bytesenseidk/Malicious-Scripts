@@ -18,8 +18,7 @@ class ARP_Poison():
     def restore(self, dest_ip, source_ip):
         dest_mac = self.mac_scan(dest_ip)
         source_mac = self.mac_scan(source_ip)
-        packet = scapy.ARP(op=2, pdst=dest_ip, hwdst=dest_mac, 
-                           psrc=source_ip, hwsrc=source_mac)
+        packet = scapy.ARP(op=2, pdst=dest_ip, hwdst=dest_mac, psrc=source_ip, hwsrc=source_mac)
         scapy.send(packet, verbose=False)
 
 
