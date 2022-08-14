@@ -35,3 +35,4 @@ if __name__ == "__main__":
         restore(gateway_ip, target_ip)
         restore(target_ip, gateway_ip)
         print("[!] ARP Spoofing Stopped")
+
