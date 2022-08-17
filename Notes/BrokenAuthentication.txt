@@ -7,6 +7,7 @@
     - This is needed because web servers use HTTP(S) to communicate (Stateless)
     - Attaching session cookies means that the server will know who is sending what data, that way the server can keep track of the users actions.
 
+
 - If an attacker is able to fine flaws in an Authentication mechanism, they would then successfully gain access to other users accounts.
 - This would allow the attacker to access sensitive data (depending on the purpose of the application)
 - Common Authentication flaws:
@@ -21,8 +22,15 @@
         - Session cookies are how the server keeps track of users.
         - If session cookies contain predictable values, an attacker can set their own session cookies and access users accounts.
 
+
 - Prevent broken Authentication:
     - Avoid password guessing attacks by ensuring the application enforces a strong password policy.
     - Avoid brute force attacks by ensuring that the application enforces an automatic lockout after a certain amount of login attempts.
     - Implement Multi Factor Authentication, if a user has multiple methods of authentication, it would be difficult for an attacker to get 
       access to both credentials and access the account.  
+
+
+- User Re-Registration:
+    - Adding a user with the same name as an existing user, but with a slight modification (" admin" instead of "admin")
+    - This will register a new user with the same permissions as the normal admin account.
+    - The new user will also be able to see all the content presented under the admin user. 
