@@ -1,0 +1,30 @@
+- XML (eXtensible Markup Language):
+    - This is a markup language that defines a set of rules for encoding documents in a format 
+      that is both human-readable and machine-readable.
+
+    - It is a markup language used for storing and transporting data.
+    - It is platform-independent and programming language independent.
+    - Data which is stored and transported using XML can be changed at any point in time without affecting the data presentation.
+    - XML allows validation using DTD and Schema. This validation ensures that the XML document is free from any syntax errors.
+    - It simplifies data sharing between various systems because of its platform-independent nature. XML data doesn't require any 
+      conversion when transferred between different systems.
+    
+
+
+- XML External Entity (XXE):
+    - This attack is a vulnerability that abuses features of XML parsers/data.
+
+    - It often allows an attacker to interact with any backend or external systems that the application 
+      itself can access and allow the attacker to read the files on the system.
+
+    - This can also cause a DOS attack or could use XXE to perform Server-Side Request Forgery (SSRF) 
+      inducing the web application to make requests to other applications.
+
+    - XXE may also enable port scanning and lead to remote code execution.
+
+    - Types of XXE attacks:
+        - In-Band XXE: The attacker can receive an immediate response to the XXE payload.
+
+        - Out-Of-Band XXE (Blind XXE): No immediate response from the web application and the attacker 
+          has to reflect the output of their XXE payload to some other file, or their own server. 
+

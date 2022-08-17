@@ -1,0 +1,28 @@
+- Sensitive Data Exposure is when a web application accidentally divulges sensitive data.
+- This is often data directly linked to customers like names, date-of-births, financial information, etc..
+- This could also be more technical data, such as usernames and passwords.
+- A more complex approach of this could be a MITM attack, here the attacker would force user connections through a 
+  device they control, then take advantage of weak encryption on any transmitted data to gain access to the intercepted information.
+
+Databases:
+    - The most common way to store a large amount of data in a format that is easily accessible from many locations at once is in a database.
+    - This is perfect for something like a web application, as there my be many users interacting with the website at any time.
+    - Database engines usually follow SQL syntax, although formats (like NoSQL) are rising in popularity.
+    - In a production environment it is common to see databases set up on dedicated servers, running a database service such as MySQL or MariaDB
+    
+    - Databases can also be stored as a single file, these databases are referred to as "flat-file" databases.
+        - If a flat-file db is stored under the root directory, an attacker can download the file and query it on their own system, 
+          with full access to everything.
+    - The most common format of flat-file db's is an SQLite database. These can be interacted with in most programming languages,
+      and have a dedicated client for querying them on the command line
+    
+    - SQLite Command Examples:
+        - To access a sqlite database: 
+            sqlite3 <database_name>
+        - Print tables in the database: 
+            .tables
+        - Print table information:
+            PRAGMA table_info(<table_name>);
+        - Dump the information from the table:
+            SELECT * FROM <table_name>; 
+        
