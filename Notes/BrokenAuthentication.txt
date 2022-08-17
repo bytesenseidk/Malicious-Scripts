@@ -1,0 +1,28 @@
+- Authentication and session management constitute core components of modern web applications.
+- Authentication allows users to gain access to web applications by verifying their identities.
+
+- The most common form of Authentication is using a username and password mechanism.
+- Session Cookies:
+    - If user credentials is verified by the server, it will then provide the users browser with a session cookie.
+    - This is needed because web servers use HTTP(S) to communicate (Stateless)
+    - Attaching session cookies means that the server will know who is sending what data, that way the server can keep track of the users actions.
+
+- If an attacker is able to fine flaws in an Authentication mechanism, they would then successfully gain access to other users accounts.
+- This would allow the attacker to access sensitive data (depending on the purpose of the application)
+- Common Authentication flaws:
+    - Brute-force Attacks:
+        - If a web application uses usernames and passwords, an attacker is able to launch brute force attacks that allow them to guess 
+          the username and password using multiple Authentication attempts.
+    - Weak Credentials:
+        - Web applications should set strong password policies.
+        - If applications allow users to set passwords such as "password", then the attacker is able to easily guess them and access user accounts.
+        - They can do so without brute forcing and without multiple attempts.
+    - Weak Session Cookies:
+        - Session cookies are how the server keeps track of users.
+        - If session cookies contain predictable values, an attacker can set their own session cookies and access users accounts.
+
+- Prevent broken Authentication:
+    - Avoid password guessing attacks by ensuring the application enforces a strong password policy.
+    - Avoid brute force attacks by ensuring that the application enforces an automatic lockout after a certain amount of login attempts.
+    - Implement Multi Factor Authentication, if a user has multiple methods of authentication, it would be difficult for an attacker to get 
+      access to both credentials and access the account.  
