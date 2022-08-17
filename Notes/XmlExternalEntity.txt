@@ -9,6 +9,27 @@
     - It simplifies data sharing between various systems because of its platform-independent nature. XML data doesn't require any 
       conversion when transferred between different systems.
     
+    - Document Type Defination (DTD):
+        - DTD defines the structure, and the legal elements and attributes of an XML document.
+        - DTD File Example (check.dtd):
+            - <!DOCTYPE check [ <!ELEMENT check (to,from,heading,body)> <!ELEMENT to (#PCDATA)> <!ELEMENT 
+              from (#PCDATA)> <!ELEMENT heading (#PCDATA)> <!ELEMENT body (#PCDATA)> ]>
+        
+        - Usage in XML document:
+            <?xml version="1.0" encoding="UTF-8"?>
+            <!DOCTYPE check SYSTEM "check.dtd">
+            <check>
+                <to>Karate Kid</to>
+                <from>Mr. Miyaki</from>
+                <heading>Hacking</heading>
+                <body>XXE</body>
+            </check>
+        
+        - DTD Elements:
+            - !DOCTYPE check: Defines a root element of the document named check.
+            - !ELEMENT check: Defines that the check element must contain the elements [to,from,heading,body]
+            - !ELEMENT [to, from, heading, body]: Defines the element to be of type "#PCDATA"
+                * #PCDATA means Parseable Character Data.
 
 
 - XML External Entity (XXE):
@@ -28,3 +49,13 @@
         - Out-Of-Band XXE (Blind XXE): No immediate response from the web application and the attacker 
           has to reflect the output of their XXE payload to some other file, or their own server. 
 
+    - XEE Example:
+        <?xml version="1.0"?>
+        <!DOCTYPE root [<!ENTITY passwd SYSTEM 'file:///etc/passwd'>]>
+        <root>&passwd;</root>
+
+    - XEE Elements:
+        - !ENTITY passwd: Defining an entity called passwd.
+        - !ENTITY passwd SYSTEM: Setting it's value to SYSTEM and path to the file.
+        - <root>&passwd;</root>: Displays the content of the entity passwd which is the value of the "/etc/passwd" file.
+    
