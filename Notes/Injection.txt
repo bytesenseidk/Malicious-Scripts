@@ -2,13 +2,20 @@
 - Injection attacks depend on what technologies are being used and how exactly the input is interpreted by these technologies.
 
 - Common injection types:
+    * Blind Command Injection: When the system command does not return the response to the user in the HTML document.
+    * Active Command Injection: When the system command returns the response to the user, it can be made visible through HTML elements.
+
     - SQL Injection: 
         - When user controlled input is passed to SQL queries.
         - This enables an attacker to pass in SQL queries to manipulate the outcome of such queries.
 
     - Command Injection: 
         - When user input is passed to system commands. 
-        - This enables an attacker is able to execute arbitrary system commands on application servers.
+        - This occurs when server-side code (like PHP) in a web application makes a system call on the hosting machine.
+        - It is a web vulnerability that allows an attacker to take advantage of that made system call to execute OS commands on the server.
+        - A reverse shell can be spawned with this command: 
+            - ;nc -e /bin/bash
+        - Once the attacker has a foothold on the server, they can start the enumeration process.
 
 
 - A successful injection attack would enable:
@@ -28,8 +35,5 @@
             - Else, it is rejected and the application throws an error.
         
         - Stripping Input:
-            - If input contains dangerous characters, these characters are removed before they are passed.
-        
+            - Removal of dangerous characters before they are passed.
 
-- Command Injection:
-    - 
