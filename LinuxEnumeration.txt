@@ -1,24 +1,28 @@
-Hostname:
+Enumeration or Information Gathering is the first phase of ethical hacking.
+This is a process where the attacker establishes an active connection with the victim and try to discover as much attack vectors as possible.
+
+
+- Hostname:
     - Returns the hostname of the machine.
     - in some cases, it can provide information about the target system's role 
         within a corporate network, e.g. "SQL-PROD-01" for a production SQL server.
 
-uname -a:
+- uname -a:
     - Returns system information giving additional details about the kernel.
     - This will be useful when searching for any potential kernel vulnerabilities 
         that could lead to privilege escalation.
 
-/proc/version:
+- /proc/version:
     - File containing information about the target system processes.
     - Looking at /proc/version may give information on the kernel version and 
         additional data such as whether a compiler is installed.
 
-/etc/issue:
+- /etc/issue:
     - File containing information about the operating system, but can easily be customized or changed.
     - Any file containing system information can be changed. For a clearer understanding of the system,
         it is always a good idea to look at all of these.
 
-ps (Process Status):
+- ps (Process Status):
     - Returns a list of running processes on the system.
     - The output will show the following:
         * PID:  The process ID.
@@ -34,20 +38,20 @@ ps (Process Status):
             - Show the user that launched the process (u) 
             - Show the processes that are not attached to a terminal (x).
 
-env:
+- env:
     - Displays environmental variables.
     - The PATH variable may have a compiler or a scripting language (like Python) that could be used to run code on the target system 
         or leveranged for privilege escalation.
 
-sudo -l:
+- sudo -l:
     - Displays all commands a user can run with root privileges.
 
-id:
+- id:
     - Displays a general overview of a user's privilege level and group memberships.
     - This command can also be used to obtain the same information for another user:
         * id <username>
 
-/etc/passwd:
+- /etc/passwd:
     - Reading this file can be an easy way to discover users on the system.
     - Manually adding a user with the right data to this file, might be a way to escalate privileges.
     - The data in this file can also be used to create a wordlist for brute-force attacks.
@@ -55,17 +59,17 @@ id:
         we can grep for "home" since these users most likely have their folders under the "home" directory:
         * cat /etc/passwd | grep home 
 
-history:
+- history:
     - Returns a list of earlier commands executed by the user.
     - Analyzing this can give an idea about the target system and (though rarely) have stored information such as passwords and usernames.
 
-ifconfig:
+- ifconfig:
     - Returns information about the network interfaces of the system.
 
-ip route:
+- ip route:
     - Returns a list of network routes.
 
-netstat:
+- netstat:
     - Gather information on existing connections.
     - Options:
         - netstat -a: Show all listening ports and established connections.
@@ -78,7 +82,7 @@ netstat:
         - netstat -i:   List interface statistics.
         - netstat -ano: Display all sockets (a), do not resolve names (n), display timers (o).
 
-find:
+- find:
     - Used to locate files and directories in the file-system.
     - Examples:
         - find . -name file.txt:        Locates the file "file.txt" in the current directory.
@@ -108,7 +112,8 @@ find:
         - find / -perm -u=s -type f 2>/dev/null:    Locates files with the SUID bit set, which allows us to run the file with a higher privilege 
                                                     level than the current user.
 
-Automated Enumeration Tools:
+- Automated Enumeration Tools:
+    * These tools should only be used to save time since they may miss some privilege escalation vectors.
     - LinPeas:                  https://github.com/carlospolop/privilege-escalation-awesome-scripts-suite/tree/master/linPEAS
     - LinEnum:                  https://github.com/rebootuser/LinEnum
     - LES:                      https://github.com/mzet-/linux-exploit-suggester
