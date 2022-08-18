@@ -1,0 +1,27 @@
+- Security Misconfigurations occur when security was not configured properly.
+
+- Security Misconfigurations include:
+    - Poorly configured permissions on cloud services (like S3 buckets).
+    - Having unnecessary features enabled, like services, pages, accounts or privileges.
+    - Default accounts with unchanged passwords.
+    - Error messages that are overly detailed and allow an attacker to find out more about the system.
+    - Not using HTTP Security Headers, or revealing too much detail in the Server: HTTP header.
+
+- This vulnerability can often lead to more vulnerabilities, such as default credentials giving access to sensitive data, 
+  XXE or Command Injection on admin pages.
+
+
+- Default Passwords:
+    - Particuarly common in embedded and IOT devices, and often owners doesn't change these passwords.
+    - It is easy to imagine the risk of default credentials from an attackers point of view. 
+      Being able to gain access to admin dashboards, services designed for system administrators or manufactures, 
+      or even network infrastructure could be incredibly useful in attacking a business. 
+      From data exposure to easy RCE, the effects of default credentials can be severe.
+
+    - History:
+        - In October 2016, DYN (a DNS proider) was taken offline by one of the most memorable DDoS attacks of the past 10 years.
+          The flood of traffic came mostly from Internet of Things ant networking devices like routers and modems, 
+          infected with the Mirai malware. 
+        - This malware had a list of 63 username/password pairs, and attempted to log in to exposed telnet services.
+        - The DDoS attack took down large websites like Amazon, Twitter, Netflix, Github, and many more, for over several hours. 
+
