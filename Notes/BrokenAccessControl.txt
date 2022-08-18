@@ -1,0 +1,40 @@
+- If a website visitor is able to access a protected page that they are not authorised to view, the access controls are broken.
+- If a regular visitor is able to access protected pages, it can lead to:
+    - Being able to view sensitive data.
+    - Accessing unauthorised functionality.
+
+- Broken Access Control allows attackers to bypass authorization which can allow them to view sensitive data or 
+  perform tasks as if they were a privileged user.
+
+
+- Attack scenarios demonstrating control weakness:    
+    - Scenario 1 | The application uses unverified data in a SQL call that is accessing account information: 
+        """
+        pstmt.setString(1, request.getParameter("acct"));
+        ResultSet result = pstmt.executeQuery();
+        """
+        - An attacker modifies the "acct" parameter in the browser to send whatever account number they want.
+        - If not properly verified, the attacker can access any user's accounts.
+
+    - Scenario 2 | An attacker simply force browsers to target URL's. Admin rights are required for accessing the admin page.
+        http://someurl.com/path/getappinfo
+        http://someurl.com/path/admin_getappinfo
+        """
+        - If an unauthenticated user can access either page, it is a flaw.
+        - If a non-admin can access the admin page, it is a flaw.
+
+
+- Insecure Direct Object Reference (IDOR):
+    - Exploitation of misconfiguration in the way user input is handled, to access resources you wouldn't 
+      ordinarily be able to access.
+    
+    - This a type of access control vulnerability.
+
+    - Example:
+        - You have just logged into your bank account, and after correctly authenticating ourselves, 
+          we are redirected to:
+            https://banksite.com/bank?account_number=1234
+        
+        - This show that we have account number 1234, if we change this number in the URL to 1235, 
+          we could potentially get access to another persons bank account.
+
