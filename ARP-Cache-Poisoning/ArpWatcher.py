@@ -1,12 +1,17 @@
 #!/usr/bin/python
 
-import sys
+import sys, os
 from scapy.all import sniff, ARP
 from signal import signal, SIGINT
 
 
-watcher_db = "/var/cache/watcher.db"
+watcher_db = "/var/cache/watcher.txt"
 ip_mac = {}
+
+# Create log file if not exists
+if not os.path.exists(watcher_db):
+    tmp = open(watcher_db, "w")
+    tmp.close()
 
 # Save ARP table on shutdown
 def sig_int_handler(signum, frame):
@@ -45,7 +50,6 @@ if len(sys.argv) < 2:
 try:
     with open(watcher_db, "r") as file:
         for line in file:
-            line.chomp()
             (ip, mac) = line.split(' ')
             ip_mac[ip] = mac
 except IOError:
@@ -55,4 +59,4 @@ except IOError:
 sniff(prn=watch_arp,
       filter="arp",
       iface=sys.argv[1],
-      score=0)
+      store=0)

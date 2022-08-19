@@ -1,5 +1,10 @@
 #!/usr/bin/python
 
+"""
+Continually sends arp requests asking, are you active? every 10 seconds.
+This generates a lot of traffic, making it noisy and easy to notice.
+"""
+
 import sys, time
 from scapy.all import sendp, ARP, Ether
 
