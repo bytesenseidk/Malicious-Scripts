@@ -30,5 +30,5 @@ def arp_poison_callback(packet):
 # Reads packets in an endless loop
 sniff(prn=arp_poison_callback,
       filter="arp", # PCAP filter that guarrentees the callback function only gets called with ARP packets as input
-      interface = sys.argv[1],
+      iface=sys.argv[1],
       store=0)  # Ensures the packet only gets saved in memory
