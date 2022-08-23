@@ -1,6 +1,5 @@
 import sys, json, phonenumbers
-from phonenumbers import carrier
-from phonenumbers import geocoder
+from phonenumbers import carrier, geocoder
 from tabulate import tabulate
 from urllib.request import urlopen
 
