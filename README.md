@@ -1,5 +1,5 @@
 # Malicious-Scripts
-malicious scripts made for testing purposes, use it legally!
+Malicious scripts made for testing purposes, use it legally!
 
 # Description
 ## Denial of Service
