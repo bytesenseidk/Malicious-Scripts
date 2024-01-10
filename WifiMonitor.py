@@ -42,7 +42,8 @@ class WifiMonitor(object):
 
 if __name__ == "__main__":
     ap = WifiMonitor()
-    interface = "wlan1mon"
+    # Activate monitormode: sudo airmon-ng start <INTERFACE>
+    interface = "wlp0s20f0u1mon"  # Enter name of NIC with correct chipset
     printer = Thread(target=ap.print_all)
     channel_changer = Thread(target=ap.change_channel)
     printer.daemon = True
@@ -51,3 +52,9 @@ if __name__ == "__main__":
     channel_changer.start()
     sniff(prn=ap.callback, iface=interface)
 
+
+"""
+Todo
+Add NIC detector
+Add monitor mode activation
+"""
